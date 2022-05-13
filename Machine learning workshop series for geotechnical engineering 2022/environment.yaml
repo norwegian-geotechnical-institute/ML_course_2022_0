@@ -8,4 +8,5 @@ dependencies:
 - pandas=1.4.1
 - scikit-learn=1.0.2
 - seaborn=0.11.2
-- optuna=2.10.0
+- openpyxl=3.0.9
+- jupyter=1.0.0
