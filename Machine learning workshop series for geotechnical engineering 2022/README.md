@@ -64,10 +64,9 @@ We recommend some steps before each workshop session
     git pull
     ```
 
-2. Activate and update necessary libraries by calling:
+2. Update the necessary libraries and activate the environment by calling:
 
     ```bash
-    conda activate ml_sessions_2022
     conda env update --file environment.yaml
+    conda activate ml_sessions_2022
     ```
-    
