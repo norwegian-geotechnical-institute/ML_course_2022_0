@@ -13,7 +13,7 @@ setup:
     Anaconda Python distribution
     https://www.anaconda.com/products/distribution
     python==3.9.7
-    matplotlib==3.5.1
+    matplotlib==3.5.2
     numpy==1.19.5
     pandas==1.4.1
     scikit-learn==1.0.2
@@ -25,13 +25,14 @@ setup:
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pathlib import Path
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 
 ###############################################################################
 # static variables
 
-FILEPATH = r'Data\CPT_PremstallerGeotechnik_revised.csv'
+FILEPATH = Path('Data/raw/CPT_PremstallerGeotechnik_revised.csv')
 INPUT_FEATURES = ['Qtn (-)', 'Fr (%)', 'U2 (-)']  # input features for ML
 OUTPUT = ['Oberhollenzer_classes']
 TRAIN_TEST_SPLIT = 0.25  # fraction of the data for testing
@@ -46,7 +47,7 @@ df = pd.read_csv(FILEPATH)
 print(df)
 print(df.info(show_counts=True))  # get info about datatype and NaN
 # get statistics on columns of dataframe and safe to a new excel sheet
-df.describe().to_excel('basic_statistics.xlsx')
+df.describe().to_excel(Path('Data/processed/basic_statistics.xlsx'))
 
 # drop all datapoints where there are no labels
 df.dropna(subset=INPUT_FEATURES+OUTPUT, inplace=True)
@@ -70,6 +71,7 @@ for i, feature in enumerate(INPUT_FEATURES):
     ax.hist(df[feature], bins=30, edgecolor='black')
     ax.set_xlabel(feature)
 plt.tight_layout()
+plt.savefig(Path("Figures/feature_histograms.png"))
 
 # sns.pairplot(df[FEATURES])
 # Feature engineering if required
@@ -94,24 +96,25 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     stratify=y)
 print(np.unique(y_train, return_counts=True)[1]/len(y_train)*100)
 
-# normalize / scale features between 0 and 1 according to training data
-# get min values of training input and subtract from data
-min_vals = X_train.min(axis=0)
-X_train = X_train - min_vals
-X_test = X_test - min_vals
-# get new max values of training input and divide data by it
-max_vals = X_train.max(axis=0)
-X_train = X_train / max_vals
-X_test = X_test / max_vals
+# # normalize / scale features between 0 and 1 according to training data
+# # get min values of training input and subtract from data
+# min_vals = X_train.min(axis=0)
+# X_train = X_train - min_vals
+# X_test = X_test - min_vals
+# # get new max values of training input and divide data by it
+# max_vals = X_train.max(axis=0)
+# X_train = X_train / max_vals
+# X_test = X_test / max_vals
 
-print(X_train.min(axis=0), X_train.max(axis=0))
-print(X_test.min(axis=0), X_test.max(axis=0))
+# print(X_train.min(axis=0), X_train.max(axis=0))
+# print(X_test.min(axis=0), X_test.max(axis=0))
 
-# save data to files
-np.save(r'Data\CPT_X_train.npy', X_train)
-np.save(r'Data\CPT_y_train.npy', y_train)
-np.save(r'Data\CPT_X_test.npy', X_test)
-np.save(r'Data\CPT_y_test.npy', y_test)
+# # save data to files
+# np.save(Path('Data/processed/CPT_min_vals.npy', min_vals))
+# np.save(Path('Data/processed/CPT_max_vals.npy', max_vals))
 
-np.save(r'Data\CPT_min_vals.npy', min_vals)
-np.save(r'Data\CPT_max_vals.npy', max_vals)
+np.save(Path('Data/processed/CPT_X_train.npy'), X_train)
+np.save(Path('Data/processed/CPT_y_train.npy'), y_train)
+np.save(Path('Data/processed/CPT_X_test.npy'), X_test)
+np.save(Path('Data/processed/CPT_y_test.npy'), y_test)
+
