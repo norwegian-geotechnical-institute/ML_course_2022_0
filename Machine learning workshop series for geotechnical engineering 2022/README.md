@@ -7,7 +7,26 @@ Before you start to code, make sure you have installed:
 - An IDE: VSCode, Spyder, Atom, Pycharm etc.
 - An package handling and coding environment system. In further coding sessions we show instructions using conda, but feel free to use other systems such as pipenv etc. Conda can be downladed either in a GUI version, using Anaconda (https://www.anaconda.com/products/distribution), or the version called miniconda (https://docs.conda.io/en/latest/miniconda.html) without GUI and tons of other stuff in Anaconda you probably don't need :-)
 
-# Good practise for scientific development
+## Setup
+
+Build the directory structure:
+
+```
+├── Data
+│   ├── raw                 <- Raw data from third party sources.
+│   ├── processed           <- Processed data ready for modelling
+├── Figures                 <- Saved figures from processing and results
+```
+
+It is also possible to run the bash-script in the repo to setup the structure by running:
+
+```bash
+bash make_data_structure.sh
+```
+
+Download and save the dataset into the Data/raw directory.
+
+## Good practise for scientific development
 
 First we would like to mention three excellent papers that describe good practise in scientific computing.
 
@@ -15,7 +34,7 @@ First we would like to mention three excellent papers that describe good practis
 - https://doi.org/10.1016/j.patter.2021.100206.
 - https://journals.plos.org/plosbiology/article/info:doi/10.1371/journal.pbio.1001745
 
-## Version control system
+### Version control system
 
 Git is a version control system. To get the code locally on your computer. You do this only once.
 
@@ -27,10 +46,7 @@ Git is a version control system. To get the code locally on your computer. You d
     git clone <url copied from repo>
     ```
 
-Save datasets in a directory called datasets in your local version of the directory
-`Machine learning workshop series for geotechnical engineering 2022`
-
-## Environment
+### Environment
 
 Use one environment for each coding project. For these 5 sessions we will use the same 
 datasets and all sessions are basically a part of the same project. It is then ok with the 
@@ -48,13 +64,13 @@ the same environment for all sessions.
    conda activate ml_sessions_2022
    ```
 
-## Version control
+### Version control
 
 We recommend to register for your own github account and make one repo for your code in 
 the workshop sessions. After every session you push the code to your personal github repo.
 That is a good learning task for taking care of version control!
 
-## Before each coding session
+### Before each coding session
 
 We recommend some steps before each workshop session
 
