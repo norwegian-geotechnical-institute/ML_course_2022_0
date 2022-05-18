@@ -13,7 +13,7 @@ setup:
     Anaconda Python distribution
     https://www.anaconda.com/products/distribution
     python==3.9.7
-    matplotlib==3.5.1
+    matplotlib==3.5.2
     numpy==1.19.5
     pandas==1.4.1
     scikit-learn==1.0.2
@@ -27,6 +27,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.model_selection import train_test_split
+from pathlib import Path
 
 
 ###############################################################################
@@ -45,7 +46,7 @@ def min_max_scaling(data, min_val=None, max_val=None):
 ###############################################################################
 # static variables
 
-FILEPATH = r'Data\Geomechanical_data_ZENODO.xlsx'
+FILEPATH = Path('Data/raw/Geomechanical_data_ZENODO.xlsx')
 FEATURES = ['ultrasonic_Vp_m_per_s', 'ultrasonic_Vs_m_per_s']  # input features
 TRAIN_TEST_SPLIT = 0.25  # fraction of the data for testing
 
@@ -59,7 +60,7 @@ df = pd.read_excel(FILEPATH)
 print(df)
 print(df.info(show_counts=True))  # get info about datatype and NaN
 # get statistics on columns of dataframe and safe to a new excel sheet
-df.describe().to_excel('basic_statistics.xlsx')
+df.describe().to_excel(Path('Data/processed/basic_statistics.xlsx'))
 
 # drop all datapoints where there are no labels
 df.dropna(subset=['ultrasonic_Vp_m_per_s', 'ultrasonic_Vs_m_per_s', 'UCS_MPa'],
@@ -72,6 +73,7 @@ for i, feature in enumerate(FEATURES):
     ax.hist(df[feature], bins=30, edgecolor='black')
     ax.set_xlabel(feature)
 plt.tight_layout()
+plt.savefig(Path("Figures/rocktype_histograms.png"))
 
 sns.pairplot(df[FEATURES+['UCS_MPa']])
 # Feature engineering if required
@@ -88,24 +90,24 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=TRAIN_TEST_SPLIT,
                                                     random_state=42)
 
-# normalize / scale features between 0 and 1 according to training data for
-# both input und output data, since this is a regression problem
-X_train, min_val_X, max_val_X = min_max_scaling(X_train)
-X_test = min_max_scaling(X_test, min_val_X, max_val_X)[0]
+# # normalize / scale features between 0 and 1 according to training data for
+# # both input und output data, since this is a regression problem
+# X_train, min_val_X, max_val_X = min_max_scaling(X_train)
+# X_test = min_max_scaling(X_test, min_val_X, max_val_X)[0]
 
-y_train, min_val_y, max_val_y = min_max_scaling(y_train)
-y_test = min_max_scaling(y_test, min_val_y, max_val_y)[0]
+# y_train, min_val_y, max_val_y = min_max_scaling(y_train)
+# y_test = min_max_scaling(y_test, min_val_y, max_val_y)[0]
 
-print(X_train.min(axis=0), X_train.max(axis=0))
-print(X_test.min(axis=0), X_test.max(axis=0))
+# print(X_train.min(axis=0), X_train.max(axis=0))
+# print(X_test.min(axis=0), X_test.max(axis=0))
 
 # save data to files
-np.save(r'Data\Rock_X_train.npy', X_train)
-np.save(r'Data\Rock_y_train.npy', y_train)
-np.save(r'Data\Rock_X_test.npy', X_test)
-np.save(r'Data\Rock_y_test.npy', y_test)
+np.save(Path('Data/processed/Rock_X_train.npy'), X_train)
+np.save(Path('Data/processed/Rock_y_train.npy'), y_train)
+np.save(Path('Data/processed/Rock_X_test.npy'), X_test)
+np.save(Path('Data/processed/Rock_y_test.npy'), y_test)
 
-np.save(r'Data\Rock_min_val_X.npy', min_val_X)
-np.save(r'Data\Rock_max_val_X.npy', max_val_X)
-np.save(r'Data\Rock_min_val_y.npy', min_val_y)
-np.save(r'Data\Rock_max_val_y.npy', max_val_y)
+# np.save(r'Data\Rock_min_val_X.npy', min_val_X)
+# np.save(r'Data\Rock_max_val_X.npy', max_val_X)
+# np.save(r'Data\Rock_min_val_y.npy', min_val_y)
+# np.save(r'Data\Rock_max_val_y.npy', max_val_y)
