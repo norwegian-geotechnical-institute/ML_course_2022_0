@@ -44,7 +44,6 @@ X_train, y_train = sm.fit_resample(X_train, y_train)
 # ***********************************************************************
 # clf = DummyClassifier() # starts with a dummy classifier
 # print(np.unique(y_test, return_counts=True)[1]/len(y_test))
-
 clf = KNeighborsClassifier(n_jobs=-1, n_neighbors=5)
 clf.fit(X_train, y_train)
 
