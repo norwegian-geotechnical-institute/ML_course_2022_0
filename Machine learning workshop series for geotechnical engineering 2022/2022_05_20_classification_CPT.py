@@ -56,9 +56,11 @@ y_test_predict = clf.predict(X_test)
 print(classification_report(y_test, y_test_predict, zero_division=0))
 print(f"Bal. acc: {balanced_accuracy_score(y_test, y_test_predict): .2f}") # one good metric for comparison
 
-cm = confusion_matrix(y_test, y_test_predict, normalize="true").round(2)
-# print(cm)
+cm = confusion_matrix(y_test, y_test_predict, normalize="true")
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=range(1,9))
-disp.plot()
+fig, ax = plt.subplots(figsize=(15,10))
+disp.plot(cmap="Greys", ax=ax, values_format=".2f")
+ax.set_xlabel("Predicted soil class")
+ax.set_ylabel("True soil class")
 plt.show()
 
