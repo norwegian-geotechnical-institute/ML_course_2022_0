@@ -5,3 +5,5 @@ The courses included in the repo will focus on geotechnical challenges and geote
 Courses in repo:
 - Workshop Series in Machine learning for geotechnical engineering 2022
 - comming courses ....
+
+Testing
