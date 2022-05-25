@@ -34,19 +34,20 @@ import lightgbm as lgbm
 
 # READ IN DATA
 # ***********************************************************************
-X_train = np.load(Path('./Data/processed/CPT_X_train.npy'))
-X_test = np.load(Path('./Data/processed/CPT_X_test.npy'))
-y_train = np.load(Path('./Data/processed/CPT_y_train.npy')).flatten() # flatten
-y_test = np.load(Path('./Data/processed/CPT_y_test.npy')).flatten() # flatten
+X_train = np.load(Path('../Data/processed/CPT_X_train.npy'))
+X_test = np.load(Path('../Data/processed/CPT_X_test.npy'))
+y_train = np.load(Path('../Data/processed/CPT_y_train.npy')).flatten() # flatten
+y_test = np.load(Path('../Data/processed/CPT_y_test.npy')).flatten() # flatten
 
+np.random.seed(42)
 
 # Defining a pipeline for processing and classification in same process
 clf = Pipeline(steps=[
     # ("scaler", StandardScaler()),
     # ("downscaling", PCA(n_components=2)),
-    ("balancing", SMOTE(random_state=42)),
+    ("balancing", SMOTE()),
     ("classifier", KNeighborsClassifier(n_jobs=-1)),
-    # ("classifier", RandomForestClassifier(n_jobs=-1, random_state=42)),
+    # ("classifier", RandomForestClassifier(n_jobs=-1)),
     # ("classifier", LogisticRegression()),
     # ("classifier", lgbm.LGBMClassifier()),
     # ("classifier", MLPClassifier(hidden_layer_sizes=(50, 20), random_state=42)),

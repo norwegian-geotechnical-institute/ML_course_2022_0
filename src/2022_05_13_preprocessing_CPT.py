@@ -32,7 +32,7 @@ from sklearn.model_selection import train_test_split
 ###############################################################################
 # static variables
 
-FILEPATH = Path('./Data/raw/CPT_PremstallerGeotechnik_revised.csv')
+FILEPATH = Path('../Data/raw/CPT_PremstallerGeotechnik_revised.csv')
 INPUT_FEATURES = ['Qtn (-)', 'Fr (%)', 'U2 (-)']  # input features for ML
 OUTPUT = ['Oberhollenzer_classes']
 TRAIN_TEST_SPLIT = 0.25  # fraction of the data for testing
@@ -47,7 +47,7 @@ df = pd.read_csv(FILEPATH)
 print(df)
 print(df.info(show_counts=True))  # get info about datatype and NaN
 # get statistics on columns of dataframe and safe to a new excel sheet
-df.describe().to_excel(Path('./Data/processed/basic_statistics.xlsx'))
+df.describe().to_excel(Path('../Data/processed/basic_statistics.xlsx'))
 
 # drop all datapoints where there are no labels
 df.dropna(subset=INPUT_FEATURES+OUTPUT, inplace=True)
@@ -71,7 +71,7 @@ for i, feature in enumerate(INPUT_FEATURES):
     ax.hist(df[feature], bins=30, edgecolor='black')
     ax.set_xlabel(feature)
 plt.tight_layout()
-plt.savefig(Path("./Figures/feature_histograms.png"))
+plt.savefig(Path("../Figures/feature_histograms.png"))
 
 # sns.pairplot(df[FEATURES])
 # Feature engineering if required
@@ -113,8 +113,8 @@ print(np.unique(y_train, return_counts=True)[1]/len(y_train)*100)
 # np.save(Path('Data/processed/CPT_min_vals.npy', min_vals))
 # np.save(Path('Data/processed/CPT_max_vals.npy', max_vals))
 
-np.save(Path('./Data/processed/CPT_X_train.npy'), X_train)
-np.save(Path('./Data/processed/CPT_y_train.npy'), y_train)
-np.save(Path('./Data/processed/CPT_X_test.npy'), X_test)
-np.save(Path('./Data/processed/CPT_y_test.npy'), y_test)
+np.save(Path('../Data/processed/CPT_X_train.npy'), X_train)
+np.save(Path('../Data/processed/CPT_y_train.npy'), y_train)
+np.save(Path('../Data/processed/CPT_X_test.npy'), X_test)
+np.save(Path('../Data/processed/CPT_y_test.npy'), y_test)
 
