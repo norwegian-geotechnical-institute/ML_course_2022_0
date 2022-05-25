@@ -34,10 +34,10 @@ import lightgbm as lgbm
 
 # READ IN DATA
 # ***********************************************************************
-X_train = np.load(Path('Data/processed/CPT_X_train.npy'))
-X_test = np.load(Path('Data/processed/CPT_X_test.npy'))
-y_train = np.load(Path('Data/processed/CPT_y_train.npy')).flatten() # flatten
-y_test = np.load(Path('Data/processed/CPT_y_test.npy')).flatten() # flatten
+X_train = np.load(Path('./Data/processed/CPT_X_train.npy'))
+X_test = np.load(Path('./Data/processed/CPT_X_test.npy'))
+y_train = np.load(Path('./Data/processed/CPT_y_train.npy')).flatten() # flatten
+y_test = np.load(Path('./Data/processed/CPT_y_test.npy')).flatten() # flatten
 
 
 # Defining a pipeline for processing and classification in same process
