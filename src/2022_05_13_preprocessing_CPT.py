@@ -32,7 +32,7 @@ from sklearn.model_selection import train_test_split
 ###############################################################################
 # static variables
 
-FILEPATH = Path('Data/raw/CPT_PremstallerGeotechnik_revised.csv')
+FILEPATH = Path('./Data/raw/CPT_PremstallerGeotechnik_revised.csv')
 INPUT_FEATURES = ['Qtn (-)', 'Fr (%)', 'U2 (-)']  # input features for ML
 OUTPUT = ['Oberhollenzer_classes']
 TRAIN_TEST_SPLIT = 0.25  # fraction of the data for testing
