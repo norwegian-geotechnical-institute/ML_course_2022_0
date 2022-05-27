@@ -16,6 +16,7 @@ Build the directory structure:
 │   ├── raw                 <- Raw data from third party sources.
 │   ├── processed           <- Processed data ready for modelling
 ├── Figures                 <- Saved figures from processing and results
+├── src                     <- Script files with functionality
 ```
 
 It is also possible to run the bash-script in the repo to setup the structure by running:
