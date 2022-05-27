@@ -9,7 +9,6 @@ Topic: Machine learning classification of CPT-data
 # from rich.traceback import install
 # install(show_locals=True)
 
-from random import Random
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -23,6 +22,7 @@ from sklearn.metrics import (
 from sklearn.model_selection import cross_val_score
 from sklearn.decomposition import PCA
 from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
 # models
 from sklearn.dummy import DummyClassifier
@@ -43,14 +43,17 @@ np.random.seed(42)
 
 # Defining a pipeline for processing and classification in same process
 clf = Pipeline(steps=[
-    # ("scaler", StandardScaler()),
+    ("scaler", StandardScaler()),
     # ("downscaling", PCA(n_components=2)),
+    # ("undersampling", RandomUnderSampler(
+        # sampling_strategy={0:8165, 1:17359,  2:6563,  3:2028, 4:20000, 5:20000, 
+                        #    6:20000, 7:20000})),
     ("balancing", SMOTE()),
     ("classifier", KNeighborsClassifier(n_jobs=-1)),
     # ("classifier", RandomForestClassifier(n_jobs=-1)),
     # ("classifier", LogisticRegression()),
     # ("classifier", lgbm.LGBMClassifier()),
-    # ("classifier", MLPClassifier(hidden_layer_sizes=(50, 20), random_state=42)),
+    # ("classifier", MLPClassifier(hidden_layer_sizes=(50, 20))),
 ])
 
 clf.fit(X_train, y_train)
