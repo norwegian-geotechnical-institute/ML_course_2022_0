@@ -3,3 +3,5 @@
 /Data
 launch.json
 settings.json
+src/.mypy*
+src/__pycache__

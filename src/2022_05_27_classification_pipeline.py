@@ -6,8 +6,8 @@ Topic: Machine learning classification of CPT-data
 @author: Tom F. Hansen, Georg H. Erharter
 """
 # presenting better error messages
-# from rich.traceback import install
-# install(show_locals=True)
+from rich.traceback import install
+install()
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,6 +24,7 @@ from sklearn.decomposition import PCA
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from imblearn.pipeline import Pipeline
+from utility import DebugPipeline
 # models
 from sklearn.dummy import DummyClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -34,16 +35,18 @@ import lightgbm as lgbm
 
 # READ IN DATA
 # ***********************************************************************
-X_train = np.load(Path('../Data/processed/CPT_X_train.npy'))
-X_test = np.load(Path('../Data/processed/CPT_X_test.npy'))
-y_train = np.load(Path('../Data/processed/CPT_y_train.npy')).flatten() # flatten
-y_test = np.load(Path('../Data/processed/CPT_y_test.npy')).flatten() # flatten
+ROOT = Path.cwd() # current working directory
+X_train = np.load(Path(ROOT,"Data/processed/CPT_X_train.npy"))
+X_test = np.load(Path(ROOT,"Data/processed/CPT_X_test.npy"))
+y_train = np.load(Path(ROOT,"Data/processed/CPT_y_train.npy")).flatten() # flatten
+y_test = np.load(Path(ROOT,"Data/processed/CPT_y_test.npy")).flatten() # flatten
 
-np.random.seed(42)
+np.random.seed(42) #to stop randomization, for comparing ML-algorithms
 
 # Defining a pipeline for processing and classification in same process
 clf = Pipeline(steps=[
-    ("scaler", StandardScaler()),
+    ("scaler", MinMaxScaler()),
+    ("debug", DebugPipeline(plot=False, pca=False)),
     # ("downscaling", PCA(n_components=2)),
     # ("undersampling", RandomUnderSampler(
         # sampling_strategy={0:8165, 1:17359,  2:6563,  3:2028, 4:20000, 5:20000, 
@@ -53,7 +56,7 @@ clf = Pipeline(steps=[
     # ("classifier", RandomForestClassifier(n_jobs=-1)),
     # ("classifier", LogisticRegression()),
     # ("classifier", lgbm.LGBMClassifier()),
-    # ("classifier", MLPClassifier(hidden_layer_sizes=(50, 20))),
+    # ("classifier", MLPClassifier(hidden_layer_sizes=(20, 10))),
 ])
 
 clf.fit(X_train, y_train)
