@@ -14,3 +14,4 @@ dependencies:
 - lightgbm=3.3.2
 - pip=22.1.1
 - rich=12.4.1
+- umap-learn=0.5.3
