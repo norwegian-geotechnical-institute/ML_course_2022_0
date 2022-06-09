@@ -7,6 +7,15 @@ Topic: Image classification of rocktypes
 Dataset:
 https://www.kaggle.com/datasets/neelgajare/rocks-dataset
 
+TODO: Try to classify better with:
+- better tuning of parameters
+- weighting in loss function
+- different learning rate in backbone
+- other backbones
+- Pytorch Lightning
+- Better augmentation techniques. Cropping?
+- Changes in dataset. Remove obvious crazy images.
+
 @author: Tom F. Hansen, Georg H. Erharter 
 """
 # IMPORTS
