@@ -5,3 +5,4 @@ launch.json
 settings.json
 src/.mypy*
 src/__pycache__
+Reports/

@@ -12,6 +12,10 @@ https://doi.org/10.1016/j.dib.2020.106618
 @author: Georg H. Erharter, Tom F. Hansen
 """
 
+# presenting better error messages
+from rich.traceback import install
+install()
+
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -102,6 +106,7 @@ for reducer, name in zip([reducer_1, reducer_2, reducer_3],
     ax.set_title(name)
     ax.legend()
     plt.tight_layout()
+    plt.show()
 
 ###############################################################################
 # clustering
@@ -121,3 +126,4 @@ for clusterer, name in zip([clusterer_1, clusterer_2, clusterer_3],
 
     ax.set_title(name)
     plt.tight_layout()
+    plt.show()
