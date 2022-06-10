@@ -1,4 +1,9 @@
-"""Script for analysis of rock type classification model"""
+"""Script for analysis of rock type classification model
+
+Run tensorboard calling this in your terminal:
+tensorboard --logdir Reports/tensorboard_logs
+
+"""
 
 import torch
 from pathlib import Path
@@ -21,8 +26,9 @@ cm = confusion_matrix(trues, preds, normalize="true")
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
 fig, ax = plt.subplots(figsize=(15,15))
 disp.plot(cmap="viridis", ax=ax, values_format=".2f")
+# ax.set_xticklabels(perf["class_names"])
 ax.set_xlabel("Predicted rocktype")
 ax.set_ylabel("True rocktype")
 plt.tight_layout()
-plt.savefig("Figures/confusion_matrix_rocktypes.png", dpi=600)
-# plt.show()
+plt.savefig(Path("Figures/confusion_matrix_rocktypes.png"), dpi=600)
+plt.show()
